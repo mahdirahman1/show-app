@@ -1,8 +1,43 @@
 import { Fragment, useEffect, useState } from "react";
 import AllShows from "./Shows/AllShows";
-import styles from "./Home.module.css";
+import styled from "styled-components";
 import Search from "./Search";
 import { connect } from "react-redux";
+
+//styled components
+const Message = styled.h1`
+  margin: 25%;
+  color: white;
+`;
+
+const Title = styled.h1`
+  color: white;
+  text-align: left;
+  margin-left: 15%;
+`;
+
+const ShowWrapper = styled.div`
+  gap: 20px;
+  padding: 2rem;
+  margin: 5rem auto;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  animation: shows-appear 1s ease-out forwards;
+  margin: 1rem auto;
+
+  @keyframes shows-appear {
+    from {
+      opacity: 0;
+      transform: translateY(3rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
 
 const Home = (props) => {
   const [searchText, setSearch] = useState("");
@@ -65,32 +100,26 @@ const Home = (props) => {
   }
 
   //Conditional renderring
-  let content = <h1 className={styles.message}>No TV shows found</h1>;
+  let content = <message>No TV Shows found</message>;
   if (props.shows.length > 0) {
     content = (
-      <div className={`${styles.shows} ${styles.home}`}>
-        <AllShows iswatchList={false} shows={props.shows} />{" "}
-      </div>
+      <ShowWrapper>
+        <AllShows iswatchList={false} shows={props.shows} />
+      </ShowWrapper>
     );
   }
   if (props.error) {
-    content = <h1 className={styles.message}>{props.error}</h1>;
+    content = <Message>{props.error}</Message>;
   }
   if (props.isLoading) {
-    content = <h1 className={styles.message}>Loading...</h1>;
+    content = <Message>Loading...</Message>;
   }
 
   return (
     <Fragment>
       <Search onSearch={SearchHandler} searchText={searchText} />
-      {resultsText !== "" && (
-        <h1 className={styles.result_title}>
-          Search results for {resultsText}
-        </h1>
-      )}
-      {resultsText === "" && (
-        <h1 className={styles.result_title}>Popular TV shows</h1>
-      )}
+      {resultsText !== "" && <Title>Search results for {resultsText}</Title>}
+      {resultsText === "" && <Title>Popular TV shows</Title>}
       {content}
     </Fragment>
   );
