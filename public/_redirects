@@ -1,1 +1,1 @@
-/api/* http://api.tvmaze.com/:splat 200
+/* http://api.tvmaze.com/:splat 200
