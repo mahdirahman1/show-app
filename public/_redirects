@@ -1,1 +1,1 @@
-/api/* http://api.tvmaze.com/:splat 200!
+/https://showfinderapp.netlify.app/* http://api.tvmaze.com/:splat 200!
