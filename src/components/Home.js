@@ -73,7 +73,7 @@ const Home = (props) => {
         word = "Batman";
       }
       const response = await fetch(
-        `http://api.tvmaze.com/search/shows?q=${word}`
+        `https://api.tvmaze.com/search/shows?q=${word}`
       );
       if (!response.ok) {
         throw new Error("Something went wrong :(");
